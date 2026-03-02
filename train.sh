@@ -1,0 +1,15 @@
+CUDA_VISIBLE_DEVICES=7 python -m torch.distributed.launch --nproc_per_node=1 --master_port=19445 run_ddp.py \
+--datapath /home/zlliu/python_code/ \
+--model=Visnorm_shared_LSRMNorm2_2branchSerial \
+--molecule buckyball_catcher \
+--dataset=1  \
+--group_builder rdkit \
+--num_interactions=6  --long_num_layers=2 \
+--learning_rate=0.001 --rho_tradeoff 0.001 \
+--dropout=0 --hidden_channels 128 \
+--gradient_clip \
+--calculate_meanstd --otfcutoff 4 \
+--short_cutoff_upper 4 --long_cutoff_lower 0 --long_cutoff_upper 9 \
+--early_stop --early_stop_patience 500 \
+--no_broadcast  --batch_size 4 \
+--ema_decay 0.999 --dropout 0.1 \
